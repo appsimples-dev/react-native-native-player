@@ -1,11 +1,6 @@
-
-#if __has_include("RCTBridgeModule.h")
-#import "RCTBridgeModule.h"
-#else
 #import <React/RCTBridgeModule.h>
-#endif
+#import <AVKit/AVKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface RNNativeVideoPlayer : NSObject <RCTBridgeModule>
-
+@interface NativeVideoPlayer : NSObject <RCTBridgeModule>
 @end
-  

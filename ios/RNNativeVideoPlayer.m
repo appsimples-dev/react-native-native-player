@@ -1,23 +1,23 @@
 
 #import "RNNativeVideoPlayer.h"
 
-@implementation RNNativeVideoPlayer
+@implementation NativeVideoPlayer
 
-- (dispatch_queue_t)methodQueue
-{
-    return dispatch_get_main_queue();
-}
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(openPlayer:(NSString *)url)
 {
-    AVPlayer *player = [AVPlayer playerWithURL:url];
+    NSURL *videoURL = [NSURL URLWithString: url];
+    AVPlayer *player = [AVPlayer playerWithURL:videoURL];
     // create a player view controller
     AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:nil];
-    controller.player = player;
-    [player play];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        [rootViewController presentViewController:controller animated:YES completion:nil];
+        controller.player = player;
+        [player play];
+    });
 }
 
 @end
-  
+
