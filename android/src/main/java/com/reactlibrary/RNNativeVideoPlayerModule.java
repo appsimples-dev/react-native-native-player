@@ -24,9 +24,11 @@ public class RNNativeVideoPlayerModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void openPlayer(@NonNull String url) {
-    ReactApplicationContext context = getReactApplicationContext();
-    Intent intent = new Intent(context, VideoPlayerActivity.class);
-    intent.putExtra("videoUrl", url);
-    context.startActivity(intent);
+    Activity activity = getCurrentActivity();
+    if (activity != null) {
+      Intent intent = new Intent(activity, VideoPlayerActivity.class);
+      intent.putExtra("videoUrl", url);
+      activity.startActivity(intent);
+    }
   }
 }
