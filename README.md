@@ -3,7 +3,7 @@
 
 ## Getting started
 
-`$ npm install react-native-native-player --save`
+`$ yarn add react-native-native-player`
 
 ### Mostly automatic installation
 
@@ -36,10 +36,10 @@
 
 
 ## Usage
-```javascript
-import RNNativeVideoPlayer from 'react-native-native-player';
 
-// TODO: What to do with the module?
-RNNativeVideoPlayer;
+```javascript
+import { openPlayer } from 'react-native-native-player'
+
+openPlayer('https://www.myvideourl.com/video.mp4')
 ```
   
