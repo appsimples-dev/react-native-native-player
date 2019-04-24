@@ -1,10 +1,12 @@
 
 package com.reactlibrary;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
 
 public class RNNativeVideoPlayerModule extends ReactContextBaseJavaModule {
 
@@ -17,6 +19,14 @@ public class RNNativeVideoPlayerModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return "RNNativeVideoPlayer";
+    return "NativeVideoPlayer";
+  }
+
+  @ReactMethod
+  public void openPlayer(@NonNull String url) {
+    ReactApplicationContext context = getReactApplicationContext();
+    Intent intent = new Intent(context, VideoPlayerActivity.class);
+    intent.putExtra("videoUrl", url);
+    context.startActivity(intent);
   }
 }
