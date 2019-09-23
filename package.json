@@ -2,7 +2,7 @@
 {
   "name": "react-native-native-player",
   "version": "0.2.2",
-  "description": "",
+  "description": "React Native simple native video player",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,9 @@
   "keywords": [
     "react-native"
   ],
-  "author": "",
-  "license": "",
+  "author": "Outsmart",
+  "license": "MIT",
+  "homepage": "https://github.com/appsimples-dev/react-native-native-player#readme",
   "peerDependencies": {
     "react-native": "^0.59.5"
   }
