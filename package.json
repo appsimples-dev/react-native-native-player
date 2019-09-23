@@ -1,7 +1,6 @@
-
 {
   "name": "react-native-native-player",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "React Native simple native video player",
   "main": "index.js",
   "scripts": {
