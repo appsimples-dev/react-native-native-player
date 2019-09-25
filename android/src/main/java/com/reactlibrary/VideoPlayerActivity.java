@@ -2,17 +2,20 @@ package com.reactlibrary;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.facebook.react.ReactActivity;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 public class VideoPlayerActivity extends ReactActivity {
@@ -33,6 +36,14 @@ public class VideoPlayerActivity extends ReactActivity {
         playerView = findViewById(R.id.exoPlayerView);
         setVideoUrlFromIntent();
         initializePlayer();
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     private void setVideoUrlFromIntent() {
@@ -59,8 +70,19 @@ public class VideoPlayerActivity extends ReactActivity {
     }
 
     private MediaSource buildMediaSource(Uri uri) {
+        String extension = uri.toString().substring(uri.toString().lastIndexOf("."));
+        if (extension.equals(".m3u8")) {
+            DataSource.Factory dataSourceFactory =
+                    new DefaultHttpDataSourceFactory(Util.getUserAgent(this, "RNVideoPlayer"));
+
+            return new HlsMediaSource.Factory(dataSourceFactory)
+                    .setAllowChunklessPreparation(true)
+                    .createMediaSource(uri);
+        }
+
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
                 Util.getUserAgent(this, "RNVideoPlayer"));
+
         return new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
     }
 
